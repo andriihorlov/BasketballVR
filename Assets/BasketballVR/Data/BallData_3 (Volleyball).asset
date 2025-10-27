@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 883fdae360900ec40876bae094f73cae, type: 3}
+  m_Name: BallData_3 (Volleyball)
+  m_EditorClassIdentifier: Assembly-CSharp::BasketballVR.Game.BallData
+  <Texture>k__BackingField: {fileID: 2800000, guid: ffc711d01d27fa443ba0d58e68505671, type: 3}
+  <Score>k__BackingField: 4
+  <PhysicsSettings>k__BackingField:
+    <PhysicsMaterial>k__BackingField: {fileID: 13400000, guid: f6a3d63eb510f2c48a497e82bda8ccd4, type: 2}
+    <MassRigidbody>k__BackingField: 0.27
+    <Drag>k__BackingField: 0.05
+    <AngularDrag>k__BackingField: 0.02

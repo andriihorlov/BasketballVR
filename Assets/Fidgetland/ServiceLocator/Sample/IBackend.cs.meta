@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: f510a1d52a7a1fe4c9af721b396907e0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 273013
+  packageName: ServiceLocator
+  packageVersion: 1.0
+  assetPath: Assets/Fidgetland/ServiceLocator/Sample/IBackend.cs
+  uploadId: 667684
