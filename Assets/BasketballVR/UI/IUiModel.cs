@@ -3,12 +3,12 @@ using Fidgetland.ServiceLocator;
 
 namespace BasketballVR.UI
 {
-    public interface IUiService : IService
+    public interface IUiModel : IService
     {
         event Action StartGamePressedEvent; 
-        event Action RestartGamePressedEvent; 
-        
-        void Init(UiView uiView);
+        event Action RestartGamePressedEvent;
+        event Action<int> ScoreUpdatedEvent; 
+
         void InvokeGameStart();
         void InvokeRestartGame();
         void IncreaseScore(int score);

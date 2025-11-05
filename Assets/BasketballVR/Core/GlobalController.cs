@@ -3,6 +3,7 @@ using BasketballVR.UI;
 using Fidgetland.ServiceLocator;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using VContainer;
 
 namespace BasketballVR.Core
 {
@@ -12,23 +13,22 @@ namespace BasketballVR.Core
         [SerializeField] private BallData[] _ballDataArray;
         [SerializeField] private ParticleSystem _goalVfx;
 
-        private IUiService _uiService;
-        private IUiService UiService => _uiService ??= Service.Instance.Get<IUiService>();
+        [Inject] private IUiModel _uiModel;
 
         private IGameService _gameService;
         private IGameService GameService => _gameService ??= Service.Instance.Get<IGameService>();
 
-        private void OnEnable()
+        private void Start()
         {
-            UiService.StartGamePressedEvent += HandleUiStartGamePressedEvent;
-            UiService.RestartGamePressedEvent += HandleUiRestartGamePressedEvent;
+            _uiModel.StartGamePressedEvent += HandleUiStartGamePressedEvent;
+            _uiModel.RestartGamePressedEvent += HandleUiRestartGamePressedEvent;
             GameService.GoalEvent += HandleGameServiceGoalEvent;
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
-            UiService.StartGamePressedEvent -= HandleUiStartGamePressedEvent;
-            UiService.RestartGamePressedEvent -= HandleUiRestartGamePressedEvent;
+            _uiModel.StartGamePressedEvent -= HandleUiStartGamePressedEvent;
+            _uiModel.RestartGamePressedEvent -= HandleUiRestartGamePressedEvent;
             GameService.GoalEvent -= HandleGameServiceGoalEvent;
         }
 
@@ -44,7 +44,7 @@ namespace BasketballVR.Core
 
         private void HandleGameServiceGoalEvent(int goalScore)
         {
-            UiService.IncreaseScore(goalScore);
+            _uiModel.IncreaseScore(goalScore);
             _goalVfx.Play();
         }
 
