@@ -4,7 +4,7 @@ using Fidgetland.ServiceLocator;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace BasketballVR
+namespace BasketballVR.Core
 {
     public class GlobalController : MonoBehaviour
     {
