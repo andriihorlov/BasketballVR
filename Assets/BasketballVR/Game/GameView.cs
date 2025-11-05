@@ -1,4 +1,6 @@
-﻿using Fidgetland.ServiceLocator;
+﻿using System.Collections.Generic;
+using BasketballVR.Basket;
+using Fidgetland.ServiceLocator;
 using UnityEngine;
 
 namespace BasketballVR.Game
@@ -15,6 +17,9 @@ namespace BasketballVR.Game
         private IGameService _gameService;
         private IGameService GameService => _gameService ??= Service.Instance.Get<IGameService>();
 
+        private IBasketNet _basketNet;
+        private IBasketNet BasketNet => _basketNet??= Service.Instance.Get<IBasketNet>();
+        
         private void Start()
         {
             GameService.Init(this);
@@ -35,18 +40,23 @@ namespace BasketballVR.Game
 
         public void SetBalls(BallData[] ballDataArray)
         {
+            List<SphereCollider> sphereColliders = new List<SphereCollider>(); 
+            
             for (int ballIndex = 0; ballIndex < ballDataArray.Length; ballIndex++)
             {
                 Vector3 position = _spawnArea == null ? Vector3.zero : _spawnArea.GetRandomPoint();
                 Ball ball = ballIndex < _balls.Length ? _balls[ballIndex] : Instantiate(_ballPrefab);
                 ball.Init(ballDataArray[ballIndex], position);
                 ball.gameObject.SetActive(true);
+                sphereColliders.Add(ball.Collider);
             }
 
             for (int index = ballDataArray.Length; index < _balls.Length; index++)
             {
                 _balls[index].gameObject.SetActive(false);
             }
+            
+            BasketNet.InitColliders(sphereColliders.ToArray());
         }
 
         private void HandleBasketEnteredEvent(Ball ball)

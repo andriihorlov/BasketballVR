@@ -1,4 +1,5 @@
-﻿using BasketballVR.Game;
+﻿using BasketballVR.Basket;
+using BasketballVR.Game;
 using BasketballVR.UI;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ namespace Fidgetland.ServiceLocator
             Service.Initialize();
             Service.Instance.Register(new UiService() as IUiService);
             Service.Instance.Register(new GameService() as IGameService);
+            Service.Instance.Register(new BasketService() as IBasketNet);
         }
     }
 }

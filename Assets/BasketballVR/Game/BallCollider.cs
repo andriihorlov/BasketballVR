@@ -4,7 +4,7 @@ namespace BasketballVR.Game
 {
     public class BallCollider : MonoBehaviour
     {
-        [SerializeField] private Collider _collider;
+        [SerializeField] private SphereCollider _collider;
         public Ball Ball { get; private set; }
         
         public void InjectBall(Ball ball)
@@ -16,5 +16,7 @@ namespace BasketballVR.Game
         {
             _collider.material = physicsMaterial;
         }
+
+        public SphereCollider GetSphereCollider() => _collider;
     }
 }
