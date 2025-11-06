@@ -7,6 +7,7 @@ namespace BasketballVR.Game
         public event Action<string> GoalEvent;
         public event Action<BallCollider[]> UpdateBallColliderEvent;
         public event Action<BallData[], int> InitBallVisualsEvent;
+        public event Action RestartEvent;
 
         public void GameStart(BallData[] ballDataArray, int ballsCount)
         {
@@ -21,6 +22,11 @@ namespace BasketballVR.Game
         public void UpdateBalls(BallCollider[] ballsColliders)
         {
             UpdateBallColliderEvent?.Invoke(ballsColliders);
+        }
+
+        public void Restart()
+        {
+            RestartEvent?.Invoke();
         }
     }
 }

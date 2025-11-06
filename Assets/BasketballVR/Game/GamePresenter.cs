@@ -22,6 +22,7 @@ namespace BasketballVR.Game
             _gameView.ScoredBallEvent += HandleGameViewScoredBallEvent;
             _gameView.UpdateBallsEvent += HandleUpdateBallsEvent;
             _gameModel.InitBallVisualsEvent += HandleInitBallVisualsEvent;
+            _gameModel.RestartEvent += HandleModelRestartEvent;
         }
 
         public void Dispose()
@@ -29,6 +30,7 @@ namespace BasketballVR.Game
             _gameView.ScoredBallEvent -= HandleGameViewScoredBallEvent;
             _gameView.UpdateBallsEvent -= HandleUpdateBallsEvent;
             _gameModel.InitBallVisualsEvent -= HandleInitBallVisualsEvent;
+            _gameModel.RestartEvent -= HandleModelRestartEvent;
         }
 
         private void HandleGameViewScoredBallEvent(int score)
@@ -45,6 +47,11 @@ namespace BasketballVR.Game
         private void HandleInitBallVisualsEvent(BallData[] ballsData, int ballsCount)
         {
             _gameView.InitBalls(GetBallData(ballsData, ballsCount));
+        }
+
+        private void HandleModelRestartEvent()
+        {
+            _score = 0;
         }
         
         private BallData[] GetBallData(BallData[] defaultDataArray, int ballsCount)

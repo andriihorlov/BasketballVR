@@ -19,14 +19,14 @@ namespace BasketballVR.Core
         {
             _uiModel.StartGamePressedEvent += HandleUiStartGamePressedEvent;
             _uiModel.RestartGamePressedEvent += HandleUiRestartGamePressedEvent;
-            _gameModel.GoalEvent += HandleGameServiceGoalEvent;
+            _gameModel.GoalEvent += HandleGameGoalEvent;
         }
 
         private void OnDestroy()
         {
             _uiModel.StartGamePressedEvent -= HandleUiStartGamePressedEvent;
             _uiModel.RestartGamePressedEvent -= HandleUiRestartGamePressedEvent;
-            _gameModel.GoalEvent -= HandleGameServiceGoalEvent;
+            _gameModel.GoalEvent -= HandleGameGoalEvent;
         }
 
         private void HandleUiStartGamePressedEvent()
@@ -36,10 +36,11 @@ namespace BasketballVR.Core
 
         private void HandleUiRestartGamePressedEvent()
         {
+            _gameModel.Restart();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
-        private void HandleGameServiceGoalEvent(string goalScore)
+        private void HandleGameGoalEvent(string goalScore)
         {
             _uiModel.UpdateScore(goalScore);
             _goalVfx.Play();
@@ -49,7 +50,7 @@ namespace BasketballVR.Core
         [ContextMenu("Simulate Goal")]
         private void GoalEditor()
         {
-            HandleGameServiceGoalEvent(1.ToString());
+            HandleGameGoalEvent(1.ToString());
         }
 
         [ContextMenu("Simulate Restart")]
