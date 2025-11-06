@@ -1,6 +1,5 @@
 using BasketballVR.Game;
 using BasketballVR.UI;
-using Fidgetland.ServiceLocator;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VContainer;
@@ -13,28 +12,26 @@ namespace BasketballVR.Core
         [SerializeField] private BallData[] _ballDataArray;
         [SerializeField] private ParticleSystem _goalVfx;
 
-        [Inject] private IUiModel _uiModel;
-
-        private IGameService _gameService;
-        private IGameService GameService => _gameService ??= Service.Instance.Get<IGameService>();
+        [Inject] private IUiModel _uiModel;       
+        [Inject] private IGameModel _gameModel;
 
         private void Start()
         {
             _uiModel.StartGamePressedEvent += HandleUiStartGamePressedEvent;
             _uiModel.RestartGamePressedEvent += HandleUiRestartGamePressedEvent;
-            GameService.GoalEvent += HandleGameServiceGoalEvent;
+            _gameModel.GoalEvent += HandleGameServiceGoalEvent;
         }
 
         private void OnDestroy()
         {
             _uiModel.StartGamePressedEvent -= HandleUiStartGamePressedEvent;
             _uiModel.RestartGamePressedEvent -= HandleUiRestartGamePressedEvent;
-            GameService.GoalEvent -= HandleGameServiceGoalEvent;
+            _gameModel.GoalEvent -= HandleGameServiceGoalEvent;
         }
 
         private void HandleUiStartGamePressedEvent()
         {
-            GameService.GameStart(_ballDataArray, _ballsCount);
+            _gameModel.GameStart(_ballDataArray, _ballsCount);
         }
 
         private void HandleUiRestartGamePressedEvent()
@@ -42,9 +39,9 @@ namespace BasketballVR.Core
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
-        private void HandleGameServiceGoalEvent(int goalScore)
+        private void HandleGameServiceGoalEvent(string goalScore)
         {
-            _uiModel.IncreaseScore(goalScore);
+            _uiModel.UpdateScore(goalScore);
             _goalVfx.Play();
         }
 
@@ -52,7 +49,7 @@ namespace BasketballVR.Core
         [ContextMenu("Simulate Goal")]
         private void GoalEditor()
         {
-            HandleGameServiceGoalEvent(1);
+            HandleGameServiceGoalEvent(1.ToString());
         }
 
         [ContextMenu("Simulate Restart")]

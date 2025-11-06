@@ -10,8 +10,7 @@ namespace Fidgetland.ServiceLocator
         public static void Init()
         {
             Service.Initialize();
-            Service.Instance.Register(new GameService() as IGameService);
-            Service.Instance.Register(new BasketService() as IBasketNet);
+            Service.Instance.Register(new BasketService() as IBasketModel);
         }
     }
 }

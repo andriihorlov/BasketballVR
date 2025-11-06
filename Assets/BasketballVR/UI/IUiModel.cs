@@ -6,10 +6,10 @@ namespace BasketballVR.UI
     {
         event Action StartGamePressedEvent; 
         event Action RestartGamePressedEvent;
-        event Action<int> ScoreUpdatedEvent; 
+        event Action<string> ScoreUpdatedEvent; 
 
         void InvokeGameStart();
         void InvokeRestartGame();
-        void IncreaseScore(int score);
+        void UpdateScore(string score);
     }
 }

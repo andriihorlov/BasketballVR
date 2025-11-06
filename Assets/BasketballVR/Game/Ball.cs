@@ -20,7 +20,7 @@ namespace BasketballVR.Game
         private Vector3 _defaultPosition;
         public int BallScore { get; private set; }
         public bool IsGrabbed => _grabInteractable.isSelected;
-        public SphereCollider Collider => _ballCollider.GetSphereCollider();
+        public BallCollider BallCollider => _ballCollider;
 
         private void Start()
         {

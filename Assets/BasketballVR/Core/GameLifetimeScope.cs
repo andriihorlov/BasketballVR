@@ -1,3 +1,4 @@
+using BasketballVR.Game;
 using BasketballVR.UI;
 using VContainer;
 using VContainer.Unity;
@@ -12,6 +13,10 @@ namespace BasketballVR.Core
             builder.Register<IUiModel, UiModel>(Lifetime.Scoped);
             builder.RegisterComponentInHierarchy<UiView>();
             
+            builder.RegisterEntryPoint<GamePresenter>();
+            builder.Register<IGameModel, GameModel>(Lifetime.Scoped);
+            builder.RegisterComponentInHierarchy<GameView>();
+
             builder.RegisterComponentInHierarchy<GlobalController>();
         }
     }

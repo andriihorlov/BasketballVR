@@ -8,8 +8,6 @@ namespace BasketballVR.UI
         private readonly UiView _uiView;
         private readonly IUiModel _uiModel;
         
-        private int _score;
-
         public UiPresenter(UiView uiView, IUiModel uiModel)
         {
             _uiView = uiView;
@@ -37,14 +35,12 @@ namespace BasketballVR.UI
 
         private void HandleViewGameRestartClickedEvent()
         {
-            _score = 0;
             _uiModel.InvokeRestartGame();
         }
 
-        private void HandleModelScoreUpdatedEvent(int score)
+        private void HandleModelScoreUpdatedEvent(string score)
         {
-            _score += score;
-            _uiView.UpdateTextScore(score.ToString());
+            _uiView.UpdateTextScore(score);
         }
     }
 }
