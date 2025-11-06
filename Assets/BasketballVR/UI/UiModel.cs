@@ -8,7 +8,6 @@ namespace BasketballVR.UI
         public event Action RestartGamePressedEvent;
         public event Action<int> ScoreUpdatedEvent;
 
-        private int _score;
 
         public void InvokeGameStart()
         {
@@ -17,19 +16,12 @@ namespace BasketballVR.UI
 
         public void InvokeRestartGame()
         {
-            _score = 0;
             RestartGamePressedEvent?.Invoke();
         }
 
         public void IncreaseScore(int score)
         {
-            _score += score;
-            UpdateScoreText();
-        }
-
-        private void UpdateScoreText()
-        {
-            ScoreUpdatedEvent?.Invoke(_score);
+            ScoreUpdatedEvent?.Invoke(score);
         }
     }
 }

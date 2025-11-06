@@ -1,9 +1,8 @@
 using System;
-using Fidgetland.ServiceLocator;
 
 namespace BasketballVR.UI
 {
-    public interface IUiModel : IService
+    public interface IUiModel 
     {
         event Action StartGamePressedEvent; 
         event Action RestartGamePressedEvent;
