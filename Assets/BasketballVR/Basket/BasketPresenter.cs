@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using BasketballVR.Game;
+using UnityEngine;
 using VContainer.Unity;
 
 namespace BasketballVR.Basket
@@ -19,16 +20,37 @@ namespace BasketballVR.Basket
         public void Start()
         {
             _basketModel.InitCollidersEvent += HandleModelInitCollidersEvent;
+            _basketView.BallInTheNetEvent += HandleBasketViewBallInTheNetEvent;
         }
 
         public void Dispose()
         {
             _basketModel.InitCollidersEvent -= HandleModelInitCollidersEvent;
+            _basketView.BallInTheNetEvent -= HandleBasketViewBallInTheNetEvent;
         }
 
         private void HandleModelInitCollidersEvent(BallCollider[] colliders)
         {
-            _basketView.InitColliders(colliders.Select(t => t.GetSphereCollider()).ToArray());
+            SphereCollider[] sphereColliders = colliders.Select(t => t.GetSphereCollider()).ToArray();
+            ClothSphereColliderPair[] pairs = new ClothSphereColliderPair[colliders.Length];
+
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                ClothSphereColliderPair pair = new ClothSphereColliderPair
+                {
+                    first = sphereColliders[i],
+                    second = null
+                };
+                
+                pairs[i] = pair;
+            }
+            
+            _basketView.InitColliders(pairs);
+        }
+        
+        private void HandleBasketViewBallInTheNetEvent(Ball ball)
+        {
+            _basketModel.BallInTheGoal(ball);
         }
     }
 }

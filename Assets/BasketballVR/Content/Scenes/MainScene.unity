@@ -1529,7 +1529,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407c2885abc74969b0404dd5affa358d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BasketballVR.Game.GameView
-  _basketBallTriggerEventReceiver: {fileID: 1184718779}
   _dangerBallAreaTriggerEventReceiver: {fileID: 151969139}
   _balls:
   - {fileID: 1621704813}
@@ -1602,7 +1601,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1184718783}
   - {fileID: 151969137}
   - {fileID: 1407117821}
   - {fileID: 1073204864}
@@ -2053,6 +2051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e20f3a1414dae4c892b997328343f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BasketballVR.Basket.BasketView
+  _basketBallTriggerEventReceiver: {fileID: 1184718779}
   _netCloth: {fileID: 840349169}
 --- !u!1001 &802728293
 PrefabInstance:
@@ -12309,6 +12308,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9414b3d851ba1bb40b13d55bdba9fabe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 840349167}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9414b3d851ba1bb40b13d55bdba9fabe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1184718783}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: -8047465103042609293, guid: 9414b3d851ba1bb40b13d55bdba9fabe, type: 3}
       insertIndex: -1
@@ -17741,8 +17743,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1184718783}
-  - component: {fileID: 1184718780}
   - component: {fileID: 1184718779}
+  - component: {fileID: 1184718784}
   m_Layer: 0
   m_Name: BasketCollider
   m_TagString: Untagged
@@ -17763,8 +17765,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BasketballVR.Utilities.TriggerEventReceiver
   _isCheckFromTop: 1
---- !u!136 &1184718780
-CapsuleCollider:
+--- !u!4 &1184718783
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184718778}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0.7071068, w: 0}
+  m_LocalPosition: {x: 0.18499994, y: -0.8670006, z: 2.7421002}
+  m_LocalScale: {x: -0.4699998, y: 0.17566311, z: 0.44999987}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1055001037}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1184718784
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -17778,29 +17795,12 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!4 &1184718783
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1184718778}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 4.1239996, y: 2.7421002, z: 0.026999936}
-  m_LocalScale: {x: -0.46999985, y: 0.17566313, z: 0.44999987}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 633329826}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.58208257, y: 1.3488764, z: 0.68823963}
+  m_Center: {x: 0.0009953915, y: 0.17443822, z: 0.056622516}
 --- !u!1001 &1193861051
 PrefabInstance:
   m_ObjectHideFlags: 0

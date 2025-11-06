@@ -1,27 +1,34 @@
+using System;
+using BasketballVR.Game;
 using UnityEngine;
 
 namespace BasketballVR.Basket
 {
     public class BasketView : MonoBehaviour
     {
+        [SerializeField] private BallTriggerEventReceiver _basketBallTriggerEventReceiver;
         [SerializeField] private Cloth _netCloth;
 
-        public void InitColliders(SphereCollider[] colliders)
+        public event Action<Ball> BallInTheNetEvent;
+        
+        private void OnEnable()
         {
-            ClothSphereColliderPair[] pairs = new ClothSphereColliderPair[colliders.Length];
+            _basketBallTriggerEventReceiver.TriggerEntered += HandleBasketEnteredEvent;
+        }
 
-            for (int i = 0; i < colliders.Length; i++)
-            {
-                ClothSphereColliderPair pair = new ClothSphereColliderPair
-                {
-                    first = colliders[i],
-                    second = null
-                };
-                
-                pairs[i] = pair;
-            }
+        private void OnDisable()
+        {
+            _basketBallTriggerEventReceiver.TriggerEntered -= HandleBasketEnteredEvent;
+        }
 
-            _netCloth.sphereColliders = pairs;
+        public void InitColliders(ClothSphereColliderPair[] clothSphereColliders)
+        {
+            _netCloth.sphereColliders = clothSphereColliders;
+        }
+
+        private void HandleBasketEnteredEvent(Ball scored)
+        {
+            BallInTheNetEvent?.Invoke(scored);
         }
     }
 }

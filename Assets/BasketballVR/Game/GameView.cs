@@ -6,7 +6,6 @@ namespace BasketballVR.Game
 {
     public class GameView : MonoBehaviour
     {
-        [SerializeField] private BallTriggerEventReceiver _basketBallTriggerEventReceiver;
         [SerializeField] private BallTriggerEventReceiver _dangerBallAreaTriggerEventReceiver;
         [SerializeField] private Ball[] _balls;
 
@@ -24,13 +23,11 @@ namespace BasketballVR.Game
 
         private void OnEnable()
         {
-            _basketBallTriggerEventReceiver.TriggerEntered += HandleBasketEnteredEvent;
             _dangerBallAreaTriggerEventReceiver.TriggerEntered += HandleDangerAreaEnteredEvent;
         }
 
         private void OnDisable()
         {
-            _basketBallTriggerEventReceiver.TriggerEntered -= HandleBasketEnteredEvent;
             _dangerBallAreaTriggerEventReceiver.TriggerEntered -= HandleDangerAreaEnteredEvent;
         }
 
@@ -55,11 +52,6 @@ namespace BasketballVR.Game
             UpdateBallsEvent?.Invoke(ballColliders.ToArray());
         }
 
-        private void HandleBasketEnteredEvent(Ball ball)
-        {
-            ScoredBallEvent?.Invoke(ball.BallScore);
-        }
-
         private void HandleDangerAreaEnteredEvent(Ball ball)
         {
             ball.ResetBall();
@@ -77,11 +69,6 @@ namespace BasketballVR.Game
                 Debug.LogError($"[{name}] Please add {nameof(SpawnArea)} to the scene and reference here.");
             }
 
-            if (_basketBallTriggerEventReceiver == null)
-            {
-                Debug.LogWarning($"[{name}] To make the game works, add the {nameof(_basketBallTriggerEventReceiver)}.");
-            }
-            
             if (_dangerBallAreaTriggerEventReceiver == null)
             {
                 Debug.LogWarning($"[{name}] Missing reference: {nameof(_dangerBallAreaTriggerEventReceiver)}.");
