@@ -1,4 +1,3 @@
-using Fidgetland.ServiceLocator;
 using UnityEngine;
 
 namespace BasketballVR.Basket
@@ -7,20 +6,7 @@ namespace BasketballVR.Basket
     {
         [SerializeField] private Cloth _netCloth;
 
-        private IBasketNet _basketNet;
-        private IBasketNet BasketNet => _basketNet??= Service.Instance.Get<IBasketNet>();
-
-        private void OnEnable()
-        {
-            BasketNet.InitCollidersEvent += BasketNetOnInitCollidersEvent;
-        }
-
-        private void OnDisable()
-        {
-            BasketNet.InitCollidersEvent -= BasketNetOnInitCollidersEvent;
-        }
-
-        private void BasketNetOnInitCollidersEvent(SphereCollider[] colliders)
+        public void InitColliders(SphereCollider[] colliders)
         {
             ClothSphereColliderPair[] pairs = new ClothSphereColliderPair[colliders.Length];
 

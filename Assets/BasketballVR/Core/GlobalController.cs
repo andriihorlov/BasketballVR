@@ -1,3 +1,4 @@
+using BasketballVR.Basket;
 using BasketballVR.Game;
 using BasketballVR.UI;
 using UnityEngine;
@@ -14,11 +15,14 @@ namespace BasketballVR.Core
 
         [Inject] private IUiModel _uiModel;       
         [Inject] private IGameModel _gameModel;
+        [Inject] private IBasketModel _basketModel;
 
         private void Start()
         {
             _uiModel.StartGamePressedEvent += HandleUiStartGamePressedEvent;
             _uiModel.RestartGamePressedEvent += HandleUiRestartGamePressedEvent;
+
+            _gameModel.UpdateBallColliderEvent += HandleGameUpdateBallColliderEvent;
             _gameModel.GoalEvent += HandleGameGoalEvent;
         }
 
@@ -26,6 +30,8 @@ namespace BasketballVR.Core
         {
             _uiModel.StartGamePressedEvent -= HandleUiStartGamePressedEvent;
             _uiModel.RestartGamePressedEvent -= HandleUiRestartGamePressedEvent;
+
+            _gameModel.UpdateBallColliderEvent -= HandleGameUpdateBallColliderEvent;
             _gameModel.GoalEvent -= HandleGameGoalEvent;
         }
 
@@ -44,6 +50,11 @@ namespace BasketballVR.Core
         {
             _uiModel.UpdateScore(goalScore);
             _goalVfx.Play();
+        }
+        
+        private void HandleGameUpdateBallColliderEvent(BallCollider[] ballColliders)
+        {
+            _basketModel.InitColliders(ballColliders);
         }
 
 #if UNITY_EDITOR
