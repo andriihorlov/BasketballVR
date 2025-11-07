@@ -6,9 +6,11 @@ namespace BasketballVR.Basket
     public interface IBasketModel
     {
         event Action<BallCollider[]> InitCollidersEvent;
-        event Action<Ball> BallScoredEvent;
+        event Action<string> BallScoredEvent;
+        event Action ResetScoreEvent;
         
         void InitColliders(BallCollider[] colliders);
-        void BallScored(Ball ball);
+        void BallScored(string score);
+        void ResetScore();
     }
 }
