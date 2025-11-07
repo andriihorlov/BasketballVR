@@ -1,6 +1,4 @@
-﻿using BasketballVR.Game;
-using BasketballVR.UI;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Fidgetland.ServiceLocator
 {
@@ -10,8 +8,6 @@ namespace Fidgetland.ServiceLocator
         public static void Init()
         {
             Service.Initialize();
-            Service.Instance.Register(new UiService() as IUiService);
-            Service.Instance.Register(new GameService() as IGameService);
         }
     }
 }
