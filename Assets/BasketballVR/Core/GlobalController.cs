@@ -42,13 +42,13 @@ namespace BasketballVR.Core
 
         private void HandleUiRestartGamePressedEvent()
         {
-            _gameModel.Restart();
+            _basketModel.ResetScore();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
-        private void HandleBasketBallEnteredGoalEvent(Ball ball)
+        private void HandleBasketBallEnteredGoalEvent(string score)
         {
-            _uiModel.UpdateScore(ball.BallScore.ToString());
+            _uiModel.UpdateScore(score);
             _goalVfx.Play();
         }
         

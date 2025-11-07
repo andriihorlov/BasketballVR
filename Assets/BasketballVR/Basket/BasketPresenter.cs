@@ -10,6 +10,7 @@ namespace BasketballVR.Basket
     {
         private readonly BasketView _basketView;
         private readonly IBasketModel _basketModel;
+        private int _score;
 
         public BasketPresenter(BasketView basketView, IBasketModel basketModel)
         {
@@ -20,12 +21,16 @@ namespace BasketballVR.Basket
         public void Start()
         {
             _basketModel.InitCollidersEvent += HandleModelInitCollidersEvent;
+            _basketModel.ResetScoreEvent += HandleResetScoreEvent;
+            
             _basketView.BallEnteredGoalEvent += HandleViewBallEnteredGoalEvent;
         }
 
         public void Dispose()
         {
             _basketModel.InitCollidersEvent -= HandleModelInitCollidersEvent;
+            _basketModel.ResetScoreEvent -= HandleResetScoreEvent;
+
             _basketView.BallEnteredGoalEvent -= HandleViewBallEnteredGoalEvent;
         }
 
@@ -50,7 +55,13 @@ namespace BasketballVR.Basket
         
         private void HandleViewBallEnteredGoalEvent(Ball ball)
         {
-            _basketModel.BallScored(ball);
+            _score += ball.BallScore;
+            _basketModel.BallScored(_score.ToString());
+        }
+        
+        private void HandleResetScoreEvent()
+        {
+            _score = 0;
         }
     }
 }

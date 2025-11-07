@@ -9,7 +9,6 @@ namespace BasketballVR.Game
     {
         private readonly GameView _gameView;
         private readonly IGameModel _gameModel;
-        private int _score;
 
         public GamePresenter(GameView gameView, IGameModel gameModel)
         {
@@ -21,20 +20,12 @@ namespace BasketballVR.Game
         {
             _gameView.UpdateBallsEvent += HandleUpdateBallsEvent;
             _gameModel.InitBallVisualsEvent += HandleInitBallVisualsEvent;
-            _gameModel.RestartEvent += HandleModelRestartEvent;
         }
 
         public void Dispose()
         {
             _gameView.UpdateBallsEvent -= HandleUpdateBallsEvent;
             _gameModel.InitBallVisualsEvent -= HandleInitBallVisualsEvent;
-            _gameModel.RestartEvent -= HandleModelRestartEvent;
-        }
-
-        private void HandleGameViewScoredBallEvent(int score)
-        {
-            _score += score;
-            _gameModel.GoalScored(_score.ToString());
         }
 
         private void HandleUpdateBallsEvent(BallCollider[] ballsColliders)
@@ -47,11 +38,6 @@ namespace BasketballVR.Game
             _gameView.InitBalls(GetBallData(ballsData, ballsCount));
         }
 
-        private void HandleModelRestartEvent()
-        {
-            _score = 0;
-        }
-        
         private BallData[] GetBallData(BallData[] defaultDataArray, int ballsCount)
         {
             List<BallData> ballList = new List<BallData>();
