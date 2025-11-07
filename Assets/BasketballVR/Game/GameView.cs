@@ -13,7 +13,6 @@ namespace BasketballVR.Game
         [SerializeField] private Ball _ballPrefab;
         [SerializeField] private SpawnArea _spawnArea;
 
-        public event Action<int> ScoredBallEvent;
         public event Action<BallCollider[]> UpdateBallsEvent;
         
         private void Start()

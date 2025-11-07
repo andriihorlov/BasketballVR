@@ -9,16 +9,16 @@ namespace BasketballVR.Basket
         [SerializeField] private BallTriggerEventReceiver _basketBallTriggerEventReceiver;
         [SerializeField] private Cloth _netCloth;
 
-        public event Action<Ball> BallInTheNetEvent;
+        public event Action<Ball> BallEnteredGoalEvent;
         
         private void OnEnable()
         {
-            _basketBallTriggerEventReceiver.TriggerEntered += HandleBasketEnteredEvent;
+            _basketBallTriggerEventReceiver.TriggerEntered += HandleEnteredGoalEvent;
         }
 
         private void OnDisable()
         {
-            _basketBallTriggerEventReceiver.TriggerEntered -= HandleBasketEnteredEvent;
+            _basketBallTriggerEventReceiver.TriggerEntered -= HandleEnteredGoalEvent;
         }
 
         public void InitColliders(ClothSphereColliderPair[] clothSphereColliders)
@@ -26,9 +26,9 @@ namespace BasketballVR.Basket
             _netCloth.sphereColliders = clothSphereColliders;
         }
 
-        private void HandleBasketEnteredEvent(Ball scored)
+        private void HandleEnteredGoalEvent(Ball scored)
         {
-            BallInTheNetEvent?.Invoke(scored);
+            BallEnteredGoalEvent?.Invoke(scored);
         }
     }
 }

@@ -20,13 +20,13 @@ namespace BasketballVR.Basket
         public void Start()
         {
             _basketModel.InitCollidersEvent += HandleModelInitCollidersEvent;
-            _basketView.BallInTheNetEvent += HandleBasketViewBallInTheNetEvent;
+            _basketView.BallEnteredGoalEvent += HandleViewBallEnteredGoalEvent;
         }
 
         public void Dispose()
         {
             _basketModel.InitCollidersEvent -= HandleModelInitCollidersEvent;
-            _basketView.BallInTheNetEvent -= HandleBasketViewBallInTheNetEvent;
+            _basketView.BallEnteredGoalEvent -= HandleViewBallEnteredGoalEvent;
         }
 
         private void HandleModelInitCollidersEvent(BallCollider[] colliders)
@@ -48,9 +48,9 @@ namespace BasketballVR.Basket
             _basketView.InitColliders(pairs);
         }
         
-        private void HandleBasketViewBallInTheNetEvent(Ball ball)
+        private void HandleViewBallEnteredGoalEvent(Ball ball)
         {
-            _basketModel.BallInTheGoal(ball);
+            _basketModel.BallScored(ball);
         }
     }
 }

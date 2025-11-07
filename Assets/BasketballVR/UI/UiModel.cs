@@ -8,7 +8,6 @@ namespace BasketballVR.UI
         public event Action RestartGamePressedEvent;
         public event Action<string> ScoreUpdatedEvent;
 
-
         public void InvokeGameStart()
         {
             StartGamePressedEvent?.Invoke();

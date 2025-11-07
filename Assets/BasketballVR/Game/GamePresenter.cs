@@ -19,7 +19,6 @@ namespace BasketballVR.Game
         
         public void Start()
         {
-            _gameView.ScoredBallEvent += HandleGameViewScoredBallEvent;
             _gameView.UpdateBallsEvent += HandleUpdateBallsEvent;
             _gameModel.InitBallVisualsEvent += HandleInitBallVisualsEvent;
             _gameModel.RestartEvent += HandleModelRestartEvent;
@@ -27,7 +26,6 @@ namespace BasketballVR.Game
 
         public void Dispose()
         {
-            _gameView.ScoredBallEvent -= HandleGameViewScoredBallEvent;
             _gameView.UpdateBallsEvent -= HandleUpdateBallsEvent;
             _gameModel.InitBallVisualsEvent -= HandleInitBallVisualsEvent;
             _gameModel.RestartEvent -= HandleModelRestartEvent;

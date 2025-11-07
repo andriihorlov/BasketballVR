@@ -6,16 +6,16 @@ namespace BasketballVR.Basket
     public class BasketModel : IBasketModel
     {
         public event Action<BallCollider[]> InitCollidersEvent;
-        public event Action<Ball> BallInTheNetEvent;
+        public event Action<Ball> BallScoredEvent;
 
         public void InitColliders(BallCollider[] colliders)
         {
             InitCollidersEvent?.Invoke(colliders);
         }
 
-        public void BallInTheGoal(Ball ball)
+        public void BallScored(Ball ball)
         {
-            BallInTheNetEvent?.Invoke(ball);
+            BallScoredEvent?.Invoke(ball);
         }
     }
 }
