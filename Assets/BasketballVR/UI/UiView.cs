@@ -1,4 +1,4 @@
-using Fidgetland.ServiceLocator;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,9 +22,9 @@ namespace BasketballVR.UI
         [Header("Message Canvas")]
         [SerializeField] private GameObject _scoredMessageCanvas;
 
-        private IUiService _uiService;
-        private IUiService UiService => _uiService ??= Service.Instance.Get<IUiService>();
-
+        public event Action GameStartClickedEvent;
+        public event Action GameRestartClickedEvent;
+        
         private void Awake()
         {
             HideMessageScoredCanvas();
@@ -51,19 +51,18 @@ namespace BasketballVR.UI
 
         private void Start()
         {
-            UiService.Init(this);
             ToggleGameCanvas(false);
         }
 
         private void HandleStartButtonPressed()
         {
-            UiService.InvokeGameStart();
+            GameStartClickedEvent?.Invoke();
             ToggleGameCanvas(true);
         }
 
         private void HandleRestartButtonPressed()
         {
-            UiService.InvokeRestartGame();
+            GameRestartClickedEvent?.Invoke();
         }
 
         private void ToggleGameCanvas(bool isActive)

@@ -1,57 +1,54 @@
-﻿using Fidgetland.ServiceLocator;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BasketballVR.Game
 {
     public class GameView : MonoBehaviour
     {
-        [SerializeField] private BallTriggerEventReceiver _basketBallTriggerEventReceiver;
         [SerializeField] private BallTriggerEventReceiver _dangerBallAreaTriggerEventReceiver;
         [SerializeField] private Ball[] _balls;
 
-        [Space] [SerializeField] private Ball _ballPrefab;
+        [Space] 
+        [SerializeField] private Ball _ballPrefab;
         [SerializeField] private SpawnArea _spawnArea;
 
-        private IGameService _gameService;
-        private IGameService GameService => _gameService ??= Service.Instance.Get<IGameService>();
-
+        public event Action<BallCollider[]> UpdateBallsEvent;
+        
         private void Start()
         {
-            GameService.Init(this);
             CheckReferences();
         }
 
         private void OnEnable()
         {
-            _basketBallTriggerEventReceiver.TriggerEntered += HandleBasketEnteredEvent;
             _dangerBallAreaTriggerEventReceiver.TriggerEntered += HandleDangerAreaEnteredEvent;
         }
 
         private void OnDisable()
         {
-            _basketBallTriggerEventReceiver.TriggerEntered -= HandleBasketEnteredEvent;
             _dangerBallAreaTriggerEventReceiver.TriggerEntered -= HandleDangerAreaEnteredEvent;
         }
 
-        public void SetBalls(BallData[] ballDataArray)
+        public void InitBalls(BallData[] ballDataArray)
         {
+            List<BallCollider> ballColliders = new List<BallCollider>(); 
+            
             for (int ballIndex = 0; ballIndex < ballDataArray.Length; ballIndex++)
             {
                 Vector3 position = _spawnArea == null ? Vector3.zero : _spawnArea.GetRandomPoint();
-                Ball ball = ballIndex < _balls.Length ? _balls[ballIndex] : Instantiate(_ballPrefab);
+                Ball ball = ballIndex < _balls?.Length ? _balls[ballIndex] : Instantiate(_ballPrefab);
                 ball.Init(ballDataArray[ballIndex], position);
                 ball.gameObject.SetActive(true);
+                ballColliders.Add(ball.BallCollider);
             }
 
-            for (int index = ballDataArray.Length; index < _balls.Length; index++)
+            for (int index = ballDataArray.Length; index < _balls?.Length; index++)
             {
                 _balls[index].gameObject.SetActive(false);
             }
-        }
-
-        private void HandleBasketEnteredEvent(Ball ball)
-        {
-            GameService.GoalScored(ball.BallScore);
+            
+            UpdateBallsEvent?.Invoke(ballColliders.ToArray());
         }
 
         private void HandleDangerAreaEnteredEvent(Ball ball)
@@ -71,9 +68,9 @@ namespace BasketballVR.Game
                 Debug.LogError($"[{name}] Please add {nameof(SpawnArea)} to the scene and reference here.");
             }
 
-            if (_basketBallTriggerEventReceiver == null)
+            if (_dangerBallAreaTriggerEventReceiver == null)
             {
-                Debug.LogWarning($"[{name}] To make the game works, add the {nameof(_basketBallTriggerEventReceiver)}.");
+                Debug.LogWarning($"[{name}] Missing reference: {nameof(_dangerBallAreaTriggerEventReceiver)}.");
             }
         }
     }
